@@ -5,6 +5,15 @@ import (
 	"math/big"
 )
 
+/*
+	Given a number n, print all the prime numbers that are in the first n Fibonacci numbers.
+
+	Input: n = 6
+	Output: [2, 3, 5]
+
+	Explanation: the first 6 fibonacci numbers are 1 1 2 3 5 8, and 2, 3, 5 are prime numbers
+*/
+
 func FindPrimesInFibonacciList(n int64) []int64 {
 	dp := make([]int64, n)
 	dp[0] = 1
