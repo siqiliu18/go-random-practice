@@ -1,6 +1,9 @@
 package lc49groupanagrams
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 type Anagrams struct {
 	name    string
@@ -78,7 +81,7 @@ func groupAnagramsBFS(strs []string) [][]string {
 	return res
 }
 
-func groupAnagrams(strs []string) [][]string {
+func groupAnagramsSortKey(strs []string) [][]string {
 	res := [][]string{}
 	wordMap := make(map[string][]string)
 	for _, word := range strs {
@@ -87,6 +90,29 @@ func groupAnagrams(strs []string) [][]string {
 			return toSort[i] < toSort[j]
 		})
 		wordMap[string(toSort)] = append(wordMap[string(toSort)], word)
+	}
+	for _, v := range wordMap {
+		res = append(res, v)
+	}
+	return res
+}
+
+type Key [26]byte // 26 means 26 English char, create an array of length 26
+
+func groupAnagrams(strs []string) [][]string {
+	res := [][]string{}
+	wordMap := make(map[Key][]string)
+	for _, word := range strs {
+		key := Key{}
+		fmt.Println(word)
+		for _, vRune := range word {
+			// vRune is ASCII code a = 97, b = 98...
+			fmt.Println(vRune - 'a')
+			// vRune - 'a' means returns array index
+			key[vRune-'a']++ // index value incremented
+			fmt.Println(key[vRune-'a'])
+		}
+		wordMap[key] = append(wordMap[key], word)
 	}
 	for _, v := range wordMap {
 		res = append(res, v)
