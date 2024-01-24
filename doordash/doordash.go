@@ -108,7 +108,9 @@ func TimeFormats() string {
 	// friDate := beginOfToday.AddDate(0, 0, -int(friOffSet))
 	// fmt.Println(friDate)
 
-	fmt.Println(findDate("fri"))
+	targetDay := findDate("fri")
+	targetDayTime := addTime(targetDay, true, 3)
+	fmt.Println(targetDayTime)
 
 	return beginTime.GoString()
 }
@@ -136,6 +138,9 @@ func findDate(day string) time.Time {
 	return targetDay
 }
 
-func addTime(day *time.Time, hms string, gap int64) {
-	day.Add(time.Hour * gap)
+func addTime(day time.Time, hms bool, gap int64) time.Time {
+	if hms {
+		return day.Add(time.Hour * time.Duration(gap))
+	}
+	return day.Add(time.Minute * time.Duration(gap))
 }
