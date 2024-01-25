@@ -2,6 +2,8 @@ package doordash
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -84,33 +86,49 @@ Note:   check last 2 digits = 55
 
 */
 
-func TimeFormats() string {
+func TimeFormats(start, end string) string {
 	beginTime, _ := time.Parse("2006-01 15:04", "2024-01 00:00")
-	// fmt.Println(beginTime)
-	// fmt.Println(time.Friday.String())
 
-	// Time := time.Date(2020, 11, 14, 10, 45, 16, 0, time.UTC)
+	startArr := strings.Split(start, " ")
+	endArr := strings.Split(end, " ")
 
-	// local, _ := time.LoadLocation("")
-	// now := time.Now().In(local)
-	// beginOfToday := now.Truncate(24 * time.Hour)
-	// fmt.Println(beginOfToday)
+	startTime := strings.Split(startArr[1], ":")
+	endTime := strings.Split(endArr[1], ":")
 
-	// sunOffset := beginOfToday.Weekday() - time.Sunday
-	// fmt.Println(sunOffset)
+	startHour := startTime[0]
+	sh, _ := strconv.Atoi(startHour)
+	startMin := startTime[1]
+	sm, _ := strconv.Atoi(startMin)
 
-	// sunDate := beginOfToday.AddDate(0, 0, -int(sunOffset))
-	// fmt.Println(sunDate)
+	endHour := endTime[0]
+	eh, _ := strconv.Atoi(endHour)
+	endMin := endTime[1]
+	em, _ := strconv.Atoi(endMin)
 
-	// friOffSet := beginOfToday.Weekday() - time.Friday
-	// fmt.Println(friOffSet)
+	startDay := startArr[0]
+	endDay := endArr[0]
 
-	// friDate := beginOfToday.AddDate(0, 0, -int(friOffSet))
-	// fmt.Println(friDate)
+	startAP := startArr[2]
+	endAP := endArr[2]
 
-	targetDay := findDate("fri")
-	targetDayTime := addTime(targetDay, true, 3)
-	fmt.Println(targetDayTime)
+	startTimeDay := createTime(findDate(startDay), sh, sm, startAP)
+	endTimeDay := createTime(findDate(endDay), eh, em, endAP)
+
+	fmt.Println(startTimeDay)
+	fmt.Println(endTimeDay)
+
+	fmt.Println("----------------")
+
+	diff := startTimeDay.Sub(endTimeDay)
+	fmt.Println(diff < 0)
+	diff = endTimeDay.Sub(startTimeDay)
+	fmt.Println(diff > 0)
+
+	fmt.Println("----------------")
+	for currTime := startTimeDay; endTimeDay.Sub(currTime) >= 0; currTime = currTime.Add(time.Minute * time.Duration(5)) {
+		// source - https://stackoverflow.com/a/33119937/9954367
+		fmt.Println(dayIntMap[currTime.Weekday()] + currTime.Format("1504"))
+	}
 
 	return beginTime.GoString()
 }
@@ -123,6 +141,16 @@ var dayMap = map[string]time.Weekday{
 	"fri": time.Friday,
 	"sat": time.Saturday,
 	"sun": time.Sunday,
+}
+
+var dayIntMap = map[time.Weekday]string{
+	time.Monday:    "1",
+	time.Tuesday:   "2",
+	time.Wednesday: "3",
+	time.Thursday:  "4",
+	time.Friday:    "5",
+	time.Saturday:  "6",
+	time.Sunday:    "7",
 }
 
 // findDate returns the beginning of the input day of current week
@@ -138,9 +166,11 @@ func findDate(day string) time.Time {
 	return targetDay
 }
 
-func addTime(day time.Time, hms bool, gap int64) time.Time {
-	if hms {
-		return day.Add(time.Hour * time.Duration(gap))
+func createTime(day time.Time, hour, minute int, apm string) time.Time {
+	if apm == "pm" {
+		return day.Add(time.Hour*time.Duration(hour) + time.Hour*time.Duration(12) + time.Minute*time.Duration(minute))
 	}
-	return day.Add(time.Minute * time.Duration(gap))
+	// d := day.Add(time.Hour * time.Duration(12))
+	// fmt.Println(d)
+	return day.Add(time.Hour*time.Duration(hour) + time.Minute*time.Duration(minute))
 }
