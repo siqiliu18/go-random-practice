@@ -1,4 +1,4 @@
-module rotate_matrix
+module go-random-practice
 
 go 1.20
 
