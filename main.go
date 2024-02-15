@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	rm "rotate_matrix/rotate_matrix"
+	rm "go-random-practice/rotate_matrix"
 )
 
 func main() {

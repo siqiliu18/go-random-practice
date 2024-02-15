@@ -22,6 +22,6 @@ func TestFindPimesInFib1(t *testing.T) {
 		arrs = append(arrs, outer)
 		fmt.Println(arrs)
 		res := FlaterArray(arrs)
-		So(res, ShouldBeFalse)
+		So(res, ShouldEqual, nil)
 	})
 }
