@@ -2,20 +2,20 @@ package main
 
 import (
 	"fmt"
+	rm "go-random-practice/rotate_matrix"
 	"sort"
-	// rm "go-random-practice/rotate_matrix"
 )
 
 func main() {
 	fmt.Println("ready")
 
-	// inputMatrix := [][]int64{
-	// 	{1, 2, 3},
-	// 	{4, 5, 6},
-	// 	{7, 8, 9},
-	// }
+	inputMatrix := [][]int64{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
 
-	// fmt.Println(rm.RotateMatrixRight90(inputMatrix))
+	fmt.Println(rm.RotateMatrixRight90(inputMatrix))
 
 	arr := []int{3, 3, 4, 5, 2, 2, 3, 2}
 	m := make(map[int]int)
