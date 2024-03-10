@@ -55,3 +55,13 @@ func TestMinWindow5(t *testing.T) {
 		So(res, ShouldEqual, exp)
 	})
 }
+
+func TestMinWindow6(t *testing.T) {
+	Convey("1", t, func() {
+		s := "AAAAAADOBECODEBANC"
+		t := "ABC"
+		res := minWindowAns(s, t)
+		exp := "BANC"
+		So(res, ShouldEqual, exp)
+	})
+}
