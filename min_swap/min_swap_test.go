@@ -11,21 +11,21 @@ func TestMinimumSwaps(t *testing.T) {
 		arr  []int32
 		want int32
 	}{
-		// {
-		// 	name: "Test case 1",
-		// 	arr:  []int32{4, 3, 1, 2},
-		// 	want: 3,
-		// },
+		{
+			name: "Test case 1",
+			arr:  []int32{4, 3, 1, 2},
+			want: 3,
+		},
 		{
 			name: "Test case 2",
 			arr:  []int32{2, 3, 4, 1, 5},
 			want: 3,
 		},
-		// {
-		// 	name: "Test case 3",
-		// 	arr:  []int32{1, 3, 5, 2, 4, 6, 7},
-		// 	want: 3,
-		// },
+		{
+			name: "Test case 3",
+			arr:  []int32{1, 3, 5, 2, 4, 6, 7},
+			want: 3,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
