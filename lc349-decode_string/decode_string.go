@@ -27,7 +27,6 @@ func decodeString(s string) string {
 			end := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 			str := ""
-			// dups, _ := strconv.Atoi(string(s[end.dpi]))
 			for i := 0; i < end.n; i++ {
 				str += s[end.si+1 : index]
 			}
